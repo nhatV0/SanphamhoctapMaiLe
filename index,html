@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ Sơ Năng Lực Sáng Tạo</title>
+    <!-- Thư viện CSS Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phông chữ Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Nạp file dữ liệu từ bên ngoài -->
+    <script src="data.js"></script>
+    <style>
+        :root {
+            --primary: #6366f1; /* Indigo */
+            --accent: #10b981;  /* Emerald */
+        }
+        body {
+            font-family: 'Quicksand', sans-serif;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        /* Hiệu ứng kính mờ cho Navbar */
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+        }
+        /* Thẻ sản phẩm */
+        .product-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
+        }
+        /* Hiệu ứng hiện dần khi cuộn trang */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Trình xem PDF */
+        .pdf-viewer-container {
+            width: 100%;
+            height: calc(100vh - 120px);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Thanh Điều Hướng -->
+    <nav class="fixed w-full z-50 nav-glass py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">M</div>
+                <span class="text-xl font-bold tracking-tight text-indigo-900">PORTFOLIO</span>
+            </div>
+            <div class="hidden md:flex gap-8 font-semibold text-slate-600">
+                <a href="#home" class="hover:text-indigo-600 transition">Trang chủ</a>
+                <a href="#products" class="hover:text-indigo-600 transition">Sản phẩm học tập</a>
+                <a href="#contact" class="hover:text-indigo-600 transition">Liên hệ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Khu Vực Giới Thiệu (Hero Section) -->
+    <section id="home" class="pt-32 pb-20 overflow-hidden">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
+            <div class="w-full md:w-1/2 space-y-8">
+                <span class="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-widest">Giáo viên tâm huyết</span>
+                <h1 id="teacher-name" class="text-5xl md:text-6xl font-extrabold text-slate-900 leading-tight">...</h1>
+                <p id="teacher-desc" class="text-lg text-slate-600 leading-relaxed max-w-xl italic">...</p>
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="#products" class="px-8 py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-xl shadow-indigo-200 hover:bg-indigo-700 hover:scale-105 transition-all">Khám phá sản phẩm</a>
+                    <a href="#contact" class="px-8 py-4 bg-white border border-slate-200 rounded-2xl font-bold hover:bg-slate-50 transition">Liên hệ ngay</a>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 relative">
+                <!-- Vòng tròn trang trí -->
+                <div class="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-indigo-50 rounded-full opacity-60"></div>
+                <img id="teacher-avatar" src="" alt="Avatar" class="w-full max-w-md mx-auto rounded-[3rem] shadow-2xl border-8 border-white object-cover aspect-square">
+            </div>
+        </div>
+    </section>
+
+    <!-- Khu Vực Sản Phẩm -->
+    <section id="products" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div class="space-y-4">
+                    <h2 class="text-4xl font-bold text-slate-900">Sản phẩm & Bài giảng</h2>
+                    <p class="text-slate-500 max-w-md">Danh sách các đồ dùng dạy học tự làm và kế hoạch bài dạy tiêu biểu của tôi.</p>
+                </div>
+                <!-- Bộ lọc -->
+                <div class="flex p-1.5 bg-slate-100 rounded-2xl">
+                    <button onclick="filterItems('tat-ca')" class="filter-btn px-6 py-2.5 rounded-xl font-bold text-sm transition-all active bg-white text-indigo-600 shadow-sm">Tất cả</button>
+                    <button onclick="filterItems('thu-cong')" class="filter-btn px-6 py-2.5 rounded-xl font-bold text-sm text-slate-500 hover:text-indigo-600 transition-all">Đồ thủ công</button>
+                    <button onclick="filterItems('giao-an')" class="filter-btn px-6 py-2.5 rounded-xl font-bold text-sm text-slate-500 hover:text-indigo-600 transition-all">Giáo án</button>
+                </div>
+            </div>
+
+            <!-- Lưới sản phẩm -->
+            <div id="product-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Dữ liệu sẽ nạp từ data.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Trình xem PDF (Modal) -->
+    <div id="modal-pdf" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4 bg-slate-900/95 backdrop-blur-md">
+        <div class="bg-white w-full max-w-6xl h-[95vh] rounded-[2.5rem] flex flex-col shadow-2xl">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h3 id="modal-title" class="text-xl font-bold text-slate-800">Tên sản phẩm</h3>
+                <button onclick="closePDF()" class="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center hover:bg-red-50 hover:text-red-600 transition-all">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="flex-grow p-4 bg-slate-200">
+                <iframe id="pdf-frame" class="w-full h-full rounded-xl border-none shadow-inner bg-white"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chân trang & Liên hệ -->
+    <footer id="contact" class="bg-slate-900 text-white py-20 mt-20">
+        <div class="container mx-auto px-6 text-center space-y-12">
+            <div class="space-y-4">
+                <h2 class="text-3xl font-bold">Kết nối với tôi</h2>
+                <p class="text-slate-400">Rất mong được trao đổi về kinh nghiệm giảng dạy và sáng tạo học liệu.</p>
+            </div>
+            <div id="social-links" class="flex justify-center gap-6">
+                <!-- Nạp từ data.js -->
+            </div>
+            <div class="pt-12 border-t border-slate-800 text-slate-500 text-sm">
+                &copy; 2024 - Thiết kế dành riêng cho Giáo viên Tiểu học. Bản quyền thuộc về <span id="footer-name">...</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Khởi tạo thông tin giáo viên
+        function initTeacher() {
+            if (typeof teacherInfo === 'undefined') return;
+            document.getElementById('teacher-name').innerText = teacherInfo.fullName;
+            document.getElementById('teacher-desc').innerText = teacherInfo.description;
+            document.getElementById('teacher-avatar').src = teacherInfo.avatar;
+            document.getElementById('footer-name').innerText = teacherInfo.fullName;
+
+            document.getElementById('social-links').innerHTML = `
+                <a href="mailto:${teacherInfo.email}" class="w-14 h-14 rounded-2xl bg-slate-800 flex items-center justify-center hover:bg-indigo-600 hover:-translate-y-2 transition-all duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </a>
+                <a href="${teacherInfo.facebook}" class="w-14 h-14 rounded-2xl bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:-translate-y-2 transition-all duration-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg>
+                </a>
+            `;
+        }
+
+        // Render danh sách sản phẩm
+        function renderProducts(categoryFilter = 'tat-ca') {
+            if (typeof productList === 'undefined') return;
+            const container = document.getElementById('product-list');
+            container.innerHTML = '';
+
+            const filtered = categoryFilter === 'tat-ca' 
+                ? productList 
+                : productList.filter(p => p.category === categoryFilter);
+
+            filtered.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'product-card reveal group bg-white rounded-[2rem] border border-slate-100 shadow-sm overflow-hidden flex flex-col';
+                
+                card.innerHTML = `
+                    <div class="relative overflow-hidden aspect-[4/3] cursor-pointer" onclick="viewPDF(${index})">
+                        <img src="${item.thumbnail}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-indigo-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-6 py-2.5 bg-white text-indigo-900 font-bold rounded-full shadow-xl">Xem bài giảng</span>
+                        </div>
+                    </div>
+                    <div class="p-8 space-y-4 flex-grow">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-black uppercase tracking-tighter px-2 py-0.5 rounded bg-indigo-50 text-indigo-600">
+                                ${item.category === 'thu-cong' ? 'Thủ công' : 'Giáo án'}
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">${item.title}</h3>
+                        <p class="text-slate-500 text-sm line-clamp-2 leading-relaxed italic">${item.description}</p>
+                        <div class="pt-4 mt-auto">
+                            <button onclick="viewPDF(${index})" class="flex items-center text-indigo-600 font-bold text-sm hover:translate-x-2 transition-transform">
+                                Chi tiết PDF 
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Kích hoạt hiệu ứng reveal
+            setTimeout(handleScroll, 100);
+        }
+
+        // Lọc sản phẩm
+        function filterItems(cat) {
+            // Cập nhật style nút
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-indigo-600', 'shadow-sm', 'active');
+                btn.classList.add('text-slate-500');
+            });
+            event.target.classList.remove('text-slate-500');
+            event.target.classList.add('bg-white', 'text-indigo-600', 'shadow-sm', 'active');
+            
+            renderProducts(cat);
+        }
+
+        // Mở PDF
+        function viewPDF(index) {
+            const product = productList[index];
+            document.getElementById('modal-title').innerText = product.title;
+            document.getElementById('pdf-frame').src = product.pdfFile;
+            document.getElementById('modal-pdf').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePDF() {
+            document.getElementById('modal-pdf').classList.add('hidden');
+            document.getElementById('pdf-frame').src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Xử lý scroll animation
+        function handleScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const revealTop = el.getBoundingClientRect().top;
+                if (revealTop < windowHeight - 50) {
+                    el.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleScroll);
+
+        window.onload = () => {
+            initTeacher();
+            renderProducts();
+        };
+
+        // Đóng modal khi click ra ngoài
+        document.getElementById('modal-pdf').onclick = function(e) {
+            if (e.target === this) closePDF();
+        };
+    </script>
+</body>
+</html>
