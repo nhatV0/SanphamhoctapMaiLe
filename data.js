@@ -6,7 +6,7 @@
 // 1. Thông tin cá nhân của Giáo viên
 const teacherInfo = {
     fullName: "Lê Ngọc Mai",
-    avatar: "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?w=800&auto=format", // Link ảnh đại diện
+    avatar: "AVT.jpg", // Link ảnh đại diện
     description: "Giáo viên Tiểu học với 2 năm kinh nghiệm. Đam mê sáng tạo đồ dùng dạy học thủ công và ứng dụng công nghệ trong bài giảng để khơi gợi cảm hứng cho học sinh.",
     email: "maiphuong.teacher@email.com",
     facebook: "https://facebook.com/yourprofile",
