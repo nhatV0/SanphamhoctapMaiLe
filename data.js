@@ -8,9 +8,9 @@ const teacherInfo = {
     fullName: "Lê Ngọc Mai",
     avatar: "AVT.jpg", // Link ảnh đại diện
     description: "Giáo viên Tiểu học với 2 năm kinh nghiệm. Đam mê sáng tạo đồ dùng dạy học thủ công và ứng dụng công nghệ trong bài giảng để khơi gợi cảm hứng cho học sinh.",
-    email: "maiphuong.teacher@email.com",
+    email: "mthi1502@gmail.com",
     facebook: "https://facebook.com/yourprofile",
-    phone: "0123.456.789"
+    phone: "0367.997.024"
 };
 
 // 2. Danh sách sản phẩm học tập (Tự động hiển thị lên Web)
